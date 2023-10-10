@@ -1,5 +1,6 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.js";
+import { notFound, errorHandller } from "./middleware/errorMiddleware.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,6 +10,8 @@ const port = process.env.PORT || 5050;
 const app = express();
 
 app.use("/api/users", userRoutes);
+app.use(notFound);
+app.use(errorHandller);
 
 app.get("/", (req, res) => res.send("Server is ready"));
 
